@@ -1,7 +1,6 @@
 # Test project Superheroes
 
-# Инструкции
-#### Запуск приложения
+#### Instructions to run the app
 ```bash
 cd /superheroes  
 docker-compose up 
