@@ -6,8 +6,8 @@ const sequelize = new Sequelize(config.db.name, config.db.user, config.db.passwo
   host: config.db.host,
   define: {
     timestamps: false
-  }
-  // logging: false
+  },
+  logging: false
 })
 
 module.exports = { sequelize, DT: Sequelize.DataTypes }
