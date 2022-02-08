@@ -3,6 +3,6 @@
 #### Instructions to run the app
 ```bash
 cd /superheroes  
-docker-compose up 
+docker-compose up -d
 ```
 
