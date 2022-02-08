@@ -1,6 +1,7 @@
 const { sequelize } = require('../../db.js')
 const { Superhero } = require('../../models/superhero.js')
 const ServiceError = require('../../ServiceError')
+const Joi = require('joi')
 
 async function deleteSuperhero ({ id }) {
   const transaction = await sequelize.transaction()
@@ -27,4 +28,9 @@ async function deleteSuperhero ({ id }) {
   }
 }
 
-module.exports = { service: deleteSuperhero }
+const validationRules = {
+  id: Joi.number()
+    .required()
+}
+
+module.exports = { service: deleteSuperhero, validationRules }

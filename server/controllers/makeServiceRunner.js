@@ -1,7 +1,7 @@
 const ServiceError = require('../ServiceError')
 const ValidationError = require('../ValidationError')
 
-// const Joi = require('joi')
+const Joi = require('joi')
 
 async function successResponseToClient (res, promise) {
   const result = await promise
@@ -34,10 +34,10 @@ function makeServiceRunner ({ service, validationRules }, dumpData) {
   return async (req, res) => {
     const payload = dumpData(req, res)
     console.log(payload)
-    // const schema = Joi.object(validationRules)
+    const schema = Joi.object(validationRules)
     try {
-      // const data = await schema.validateAsync(payload, { abortEarly: false })
-      const promise = await service(payload)
+      const data = await schema.validateAsync(payload, { abortEarly: false })
+      const promise = await service(data)
       await successResponseToClient(res, promise)
     } catch (error) {
       if (error.name === 'ValidationError') {

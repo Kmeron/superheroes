@@ -1,10 +1,9 @@
 const { sequelize } = require('../../db.js')
 const { Superhero } = require('../../models/superhero.js')
 const ServiceError = require('../../ServiceError.js')
+const Joi = require('joi')
 
 async function createHero ({ imageIds, ...hero }) {
-  console.log(imageIds)
-  console.log(hero)
   const transaction = await sequelize.transaction()
   try {
     const isHeroExist = await Superhero.findOne({ where: { nickname: hero.nickname }, transaction })
@@ -27,10 +26,31 @@ async function createHero ({ imageIds, ...hero }) {
     transaction.commit()
     return result
   } catch (error) {
-    console.log(error)
     transaction.rollback()
     throw error
   }
 }
 
-module.exports = { service: createHero }
+const validationRules = {
+  nickname: Joi.string()
+    .required(),
+
+  real_name: Joi.string()
+    .required(),
+
+  origin_description: Joi.string()
+    .required(),
+
+  superpowers: Joi.string()
+    .required(),
+
+  catch_phrase: Joi.string()
+    .required(),
+
+  imageIds: Joi.array()
+    .items(Joi.string())
+    .required()
+
+}
+
+module.exports = { service: createHero, validationRules }

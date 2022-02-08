@@ -2,6 +2,7 @@ const { sequelize } = require('../../db.js')
 const { Superhero } = require('../../models/superhero.js')
 const { Image } = require('../../models/image.js')
 const ServiceError = require('../../ServiceError.js')
+const Joi = require('joi')
 
 async function listHeroes ({ limit, offset }) {
   const transaction = await sequelize.transaction()
@@ -37,4 +38,11 @@ async function listHeroes ({ limit, offset }) {
   }
 }
 
-module.exports = { service: listHeroes }
+const validationRules = {
+  limit: Joi.string()
+    .required(),
+  offset: Joi.string()
+    .required()
+}
+
+module.exports = { service: listHeroes, validationRules }

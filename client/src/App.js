@@ -66,14 +66,12 @@ function App () {
     try {
       const { data } = await showHero(id)
       setHeroModalData(data)
-      console.log(data)
     } catch (error) {
       alert(error.message)
     }
   }
 
   const handleOnClickModalDelete = async (id) => {
-    console.log(id)
     await deleteHero(id)
     setHeroModalData(false)
     const { data, meta } = await listHeroes({ limit, offset })

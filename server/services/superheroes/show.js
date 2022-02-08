@@ -2,6 +2,7 @@ const { sequelize } = require('../../db.js')
 const { Superhero } = require('../../models/superhero.js')
 const { Image } = require('../../models/image')
 const ServiceError = require('../../ServiceError')
+const Joi = require('joi')
 
 async function showMovie ({ id }) {
   const transaction = await sequelize.transaction()
@@ -40,4 +41,9 @@ async function showMovie ({ id }) {
   }
 }
 
-module.exports = { service: showMovie }
+const validationRules = {
+  id: Joi.number()
+    .required()
+}
+
+module.exports = { service: showMovie, validationRules }
