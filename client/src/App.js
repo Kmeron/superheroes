@@ -29,6 +29,7 @@ function App () {
   const [offset, setOffset] = useState(0)
   const limit = 5
   const [heroModalData, setHeroModalData] = useState(null)
+  const isDisabled = Object.values(heroData).some(value => !value) || !heroImage
 
   useEffect(() => {
     listHeroes({ limit, offset })
@@ -40,8 +41,6 @@ function App () {
   }, [offset])
 
   const handleOnClickCreateButton = async () => {
-    const isEmpty = Object.values(heroData).every(value => value !== '')
-    if (!isEmpty) return
     const formData = new FormData()
     for (let i = 0; i < heroImage.length; i++) {
       formData.append(`images[${i}]`, heroImage[i])
@@ -49,6 +48,14 @@ function App () {
     try {
       const imageIds = await createHeroImage(formData)
       await createHero({ ...heroData, imageIds: imageIds.data })
+      setHeroData({
+        nickname: '',
+        real_name: '',
+        origin_description: '',
+        superpowers: '',
+        catch_phrase: ''
+      })
+      setHeroImage(null)
       const { data, meta } = await listHeroes({ limit, offset: 0 })
       setHeroes(data)
       setOffset(0)
@@ -120,7 +127,7 @@ function App () {
 
         <p>Images:</p>
         <CreateImageUploadInput
-        files={heroImage}
+        isDisabled={isDisabled}
         onChange={images => setHeroImage(images)}
         onClick={() => handleOnClickCreateButton()}/>
 

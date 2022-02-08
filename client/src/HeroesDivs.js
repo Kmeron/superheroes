@@ -6,7 +6,9 @@ function HeroesDivs ({ heroes, onClick }) {
       {heroes.map(hero =>
         <div key={hero.id}>
           <img src={'http://localhost:3000/static/' + hero.imageIds.id} width={100} height={100}></img>
-          <p onClick={() => onClick(hero.id)}>{hero.nickname}</p>
+          <div>
+          <button onClick={() => onClick(hero.id)}>{hero.nickname}</button>
+          </div>
         </div>
       )}
     </div>
@@ -19,23 +21,3 @@ HeroesDivs.propTypes = {
 }
 
 export default HeroesDivs
-
-// editHero?.id === hero.id
-// ? (
-// <div key={hero.id} >
-//   <EditTitleInput value={editHero.title} onChange={current => setEditHero(previous => ({ ...previous, ...current }))}/>
-//   <EditTextInput value={editHero.text} onChange={current => setEditHero(previous => ({ ...previous, ...current }))}/>
-//   <Save onClick={() => {
-//     saveFn(editHero)
-//     setEditHero(null)
-//   }}/>
-// </div>
-//   )
-// : (
-// <div key={hero.id}>
-//   <p>{hero.title}</p>
-//   <p>{hero.text}</p>
-//   <Edit onClick={() => setEditHero(hero)}/>
-//   <Delete onClick={() => deleteFn(hero.id)}/>
-// </div>
-//   )

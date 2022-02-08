@@ -11,13 +11,13 @@ const Modal = ({ heroModalData, onClose, onDelete, close }) => {
   const [removedImages, setRemovedImages] = useState([])
   const [newImages, setNewImages] = useState([])
   const handleOnClickImageDeleteButton = (id) => {
+    if (screenImages.length === 1) return
     const imagesToRemove = [...removedImages]
     imagesToRemove.push(...heroModalData.images.splice(heroModalData.images.findIndex(image => image.id === id), 1))
     setRemovedImages(imagesToRemove)
     setScreenImages([...heroModalData.images])
   }
   const handleOnClickSaveButton = async () => {
-    if ((removedImages.length > editData.images.length) && !newImages.length) return
     const formData = new FormData()
     for (let i = 0; i < newImages.length; i++) {
       formData.append(`images[${i}]`, newImages[i])
