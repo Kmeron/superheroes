@@ -1,4 +1,4 @@
-const port = process.env.PORT
+const port = 3000 || process.env.PORT
 const db = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,

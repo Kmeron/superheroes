@@ -17,6 +17,6 @@ app
   .use(express.static(pathToStaticClient))
   .use('/static', express.static(pathToStaticFiles))
 
-sequelize.sync({ force: true })
+sequelize.sync()
   .then(() => app.listen(port, () => console.log(`App listen on port ${port}`)))
   .catch(console.log)

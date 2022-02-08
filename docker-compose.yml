@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  db:
+    restart: always
+    image: mysql:latest 
+    env_file:
+      - ./server/.env
+  app:
+    restart: always
+    build: 
+      context: .
+      dockerfile: Dockerfile 
+    environment:
+      - DB_USER=root
+      - DB_PASSWORD=qwerty2021
+      - DB_HOST=db
+      - DB_NAME=superheroesdb
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
